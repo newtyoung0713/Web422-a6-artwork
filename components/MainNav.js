@@ -49,7 +49,7 @@ export default function MainNav() {
               </>
             )}
           </Nav>
-          { token &&
+          { !token &&
           (<Nav>
             <>
               <Link href="/register" passHref legacyBehavior><Nav.Link active={isActive("/register")} onClick={() => setIsExpanded(false)}>Register</Nav.Link></Link>
@@ -75,16 +75,19 @@ export default function MainNav() {
           <Nav>
               <NavDropdown title={token.userName} id="basic-nav-dropdown">
                 <Link href="/favourites" passHref legacyBehavior>
-                  <NavDropdown.Item onClick={() => setIsExpanded(false)}>
+                  <NavDropdown.Item active={isActive("/favourites")} onClick={() => setIsExpanded(false)}>
                     Favourites
                   </NavDropdown.Item>
                 </Link>
                 <Link href="/history" passHref legacyBehavior>
-                  <NavDropdown.Item onClick={() => setIsExpanded(false)}>
+                  <NavDropdown.Item active={isActive("/history")} onClick={() => setIsExpanded(false)}>
                     Search History
                   </NavDropdown.Item>
                 </Link>
-                <NavDropdown.Item onClick={logout}>Logout</NavDropdown.Item>
+                <NavDropdown.Item onClick={() => {
+                  setIsExpanded(false);
+                  logout();
+                }}>Logout</NavDropdown.Item>
               </NavDropdown>
             </Nav>
           ) : (
