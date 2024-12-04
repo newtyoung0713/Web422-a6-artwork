@@ -17,8 +17,6 @@ export default function Login(props) {
   async function updateAtoms() {
     try {
       setFavouritesList(await getFavourites()); 
-      console.log("favourites updated:", favourites);
-
       setSearchHistory(await getHistory()); 
       setSearchHistory(history);
       console.log("history updated:", history);

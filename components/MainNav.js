@@ -15,7 +15,8 @@ export default function MainNav() {
 
   const router = useRouter();
   let token = readToken();
-
+  console.log("Token value:", token);
+  console.log("Token type:", typeof token);
   function logout() {
     setIsExpanded(false);
     removeToken();
@@ -49,14 +50,6 @@ export default function MainNav() {
               </>
             )}
           </Nav>
-          { !token &&
-          (<Nav>
-            <>
-              <Link href="/register" passHref legacyBehavior><Nav.Link active={isActive("/register")} onClick={() => setIsExpanded(false)}>Register</Nav.Link></Link>
-              <Link href="/login" passHref legacyBehavior><Nav.Link active={isActive("/login")} onClick={() => setIsExpanded(false)}>Login</Nav.Link></Link>
-            </>
-          </Nav>)
-          }
           {token && (
           <Form className="d-flex" onSubmit={submitForm}>
             <Form.Control
