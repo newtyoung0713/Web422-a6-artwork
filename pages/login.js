@@ -31,6 +31,8 @@ export default function Login(props) {
       await authenticateUser(user, password);
       await updateAtoms();
       console.log("atom updated");
+      console.log("user:", user);
+      console.log("password: ", password);
       router.push("/favourites");
     } catch (err) {
       console.error("Error during login:", err);
