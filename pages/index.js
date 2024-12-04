@@ -10,7 +10,10 @@
 *  Student ID: 160443222
 *  Date: Dec-XX-2024
 *
-*  Vercel App (Deployed) Link:  
+*  Vercel App (Deployed) Link:
+*
+*   Frontend: https://web422-a6-artwork.vercel.app
+*    Backend: https://web422-a6-userapi.vercel.app
 *
 ********************************************************************************/
 

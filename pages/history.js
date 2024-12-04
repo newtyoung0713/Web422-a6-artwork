@@ -11,13 +11,16 @@ export default function History() {
 
   if (!searchHistory) return null;
   
-  let parsedHistory = [];
-
-  searchHistory.forEach(h => {
+  let parsedHistory = searchHistory.map(h => {
+    try {
       let params = new URLSearchParams(h);
-      let entries = params.entries();
-      parsedHistory.push(Object.fromEntries(entries));
+      return Object.fromEntries(params.entries());
+    } catch (error) {
+      console.error("Invalid search history entry:", h, error);
+      return {};
+    }
   });
+  
 
   const historyClicked = (e, index) => {
     e.stopPropagation();
@@ -26,20 +29,27 @@ export default function History() {
 
   const removeHistoryClicked = async (e, index) => {
     e.stopPropagation(); // stop the event from trigging other events
-    setSearchHistory(await removeFromHistory(searchHistory[index]));
-  };
+    try {
+      const updatedHistory = await removeFromHistory(searchHistory[index]);
+      setSearchHistory(updatedHistory);
+    } catch (error) {
+      console.error("Failed to remove from history:", error);
+    }
+  };  
 
   if (parsedHistory.length === 0) {
-    return (
+    return (<>
+      <Card.Text>History</Card.Text>
       <Card>
         <Card.Body>
           <Card.Text>Nothing Here. Try searching for some artwork.</Card.Text>
         </Card.Body>
       </Card>
-    );
+    </>);
   }
 
-  return (
+  return (<>
+    <h1>History</h1>
     <ListGroup>
       {parsedHistory.map((historyItem, index) => (
         <ListGroup.Item 
@@ -63,5 +73,5 @@ export default function History() {
         </ListGroup.Item>
       ))}
     </ListGroup>
-  );
+  </>);
 }
