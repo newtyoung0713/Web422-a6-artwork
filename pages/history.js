@@ -11,9 +11,12 @@ export default function History() {
 
   if (!searchHistory) return null;
   
-  let parsedHistory = searchHistory.map(h => {
-    let params = new URLSearchParams(h);
-    return Object.fromEntries(params.entries());
+  let parsedHistory = [];
+
+  searchHistory.forEach(h => {
+      let params = new URLSearchParams(h);
+      let entries = params.entries();
+      parsedHistory.push(Object.fromEntries(entries));
   });
 
   const historyClicked = (e, index) => {
