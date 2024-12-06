@@ -9,16 +9,14 @@ export default function History() {
   const [searchHistory, setSearchHistory] = useAtom(searchHistoryAtom);
   const router = useRouter();
 
-  if (!searchHistory) return null;
+  if (!Array.isArray(searchHistory)) return null;
   
-  let parsedHistory = searchHistory.map(h => {
-    try {
+  let parsedHistory = [];
+
+  searchHistory.forEach(h => {
       let params = new URLSearchParams(h);
-      return Object.fromEntries(params.entries());
-    } catch (error) {
-      console.error("Invalid search history entry:", h, error);
-      return {};
-    }
+      let entries = params.entries();
+      parsedHistory.push(Object.fromEntries(entries));
   });
   
 
